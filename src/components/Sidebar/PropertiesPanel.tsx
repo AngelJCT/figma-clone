@@ -133,7 +133,7 @@ export default function PropertiesPanel() {
               />
             </div>
 
-            {selectedElement.type === 'rectangle' && (
+            {(selectedElement.type === 'rectangle' || selectedElement.type === 'frame') && (
               <div>
                 <label className="block text-xs text-gray-400 mb-1">Border Radius</label>
                 <input
@@ -144,6 +144,102 @@ export default function PropertiesPanel() {
                 />
               </div>
             )}
+          </>
+        )}
+
+        {selectedElement.type === 'frame' && (
+          <>
+            <div className="pt-4 border-t border-gray-700">
+              <h3 className="text-xs font-semibold text-gray-400 mb-3">Auto Layout</h3>
+              <div>
+                <label className="block text-xs text-gray-400 mb-1">Layout Mode</label>
+                <select
+                  value={selectedElement.properties.layoutMode || 'none'}
+                  onChange={(e) => handlePropertyChange('layoutMode', e.target.value)}
+                  className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+                >
+                  <option value="none">None</option>
+                  <option value="horizontal">Horizontal</option>
+                  <option value="vertical">Vertical</option>
+                  <option value="grid">Grid</option>
+                </select>
+              </div>
+
+              {selectedElement.properties.layoutMode && selectedElement.properties.layoutMode !== 'none' && (
+                <>
+                  <div className="mt-3">
+                    <label className="block text-xs text-gray-400 mb-1">Padding</label>
+                    <input
+                      type="number"
+                      value={selectedElement.properties.padding || 0}
+                      onChange={(e) => handlePropertyChange('padding', parseFloat(e.target.value))}
+                      className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div className="mt-3">
+                    <label className="block text-xs text-gray-400 mb-1">Gap</label>
+                    <input
+                      type="number"
+                      value={selectedElement.properties.gap || 0}
+                      onChange={(e) => handlePropertyChange('gap', parseFloat(e.target.value))}
+                      className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div className="mt-3">
+                    <label className="block text-xs text-gray-400 mb-1">Justify Content</label>
+                    <select
+                      value={selectedElement.properties.justifyContent || 'start'}
+                      onChange={(e) => handlePropertyChange('justifyContent', e.target.value)}
+                      className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+                    >
+                      <option value="start">Start</option>
+                      <option value="center">Center</option>
+                      <option value="end">End</option>
+                      <option value="space-between">Space Between</option>
+                    </select>
+                  </div>
+
+                  <div className="mt-3">
+                    <label className="block text-xs text-gray-400 mb-1">Align Items</label>
+                    <select
+                      value={selectedElement.properties.alignItems || 'start'}
+                      onChange={(e) => handlePropertyChange('alignItems', e.target.value)}
+                      className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+                    >
+                      <option value="start">Start</option>
+                      <option value="center">Center</option>
+                      <option value="end">End</option>
+                    </select>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
+
+        {selectedElement.type === 'line' && (
+          <>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Stroke</label>
+              <input
+                type="color"
+                value={selectedElement.properties.stroke || '#ffffff'}
+                onChange={(e) => handlePropertyChange('stroke', e.target.value)}
+                className="w-full h-8 bg-gray-700 rounded border border-gray-600"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Stroke Width</label>
+              <input
+                type="number"
+                value={selectedElement.properties.strokeWidth || 2}
+                onChange={(e) => handlePropertyChange('strokeWidth', parseFloat(e.target.value))}
+                className="w-full px-2 py-1 bg-gray-700 text-white text-sm rounded border border-gray-600 focus:outline-none focus:border-blue-500"
+              />
+            </div>
           </>
         )}
 

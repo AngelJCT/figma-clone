@@ -6,6 +6,7 @@ import { screenToCanvas, isPointInRect } from '@/utils';
 import { CANVAS_BACKGROUND, MIN_ZOOM, MAX_ZOOM } from '@/constants';
 import TransformControls from './TransformControls';
 import EmptyState from './EmptyState';
+import DrawingMode from './DrawingMode';
 
 interface CanvasProps {
   onCreateArtboard: () => void;
@@ -132,6 +133,9 @@ export default function Canvas({ onCreateArtboard }: CanvasProps) {
         case 'text':
           drawText(ctx, element);
           break;
+        case 'line':
+          drawLine(ctx, element);
+          break;
       }
 
       ctx.restore();
@@ -160,6 +164,21 @@ export default function Canvas({ onCreateArtboard }: CanvasProps) {
       } else {
         ctx.strokeRect(position.x, position.y, dimensions.width, dimensions.height);
       }
+    }
+
+    if (element.type === 'frame' && properties.layoutMode && properties.layoutMode !== 'none') {
+      const padding = properties.padding || 0;
+      ctx.save();
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 1 / viewport.zoom;
+      ctx.setLineDash([4 / viewport.zoom, 4 / viewport.zoom]);
+      ctx.strokeRect(
+        position.x + padding,
+        position.y + padding,
+        dimensions.width - padding * 2,
+        dimensions.height - padding * 2
+      );
+      ctx.restore();
     }
   };
 
@@ -191,10 +210,25 @@ export default function Canvas({ onCreateArtboard }: CanvasProps) {
     const fontFamily = properties.fontFamily || 'sans-serif';
     const fontWeight = properties.fontWeight || 400;
 
-    ctx.font = `${fontWeight} ${fontSize / viewport.zoom}px ${fontFamily}`;
+    ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
     ctx.fillStyle = properties.fill || '#000';
     ctx.textAlign = properties.textAlign || 'left';
+    ctx.textBaseline = 'top';
     ctx.fillText(properties.text || '', position.x, position.y);
+  };
+
+  const drawLine = (ctx: CanvasRenderingContext2D, element: any) => {
+    const { position, dimensions, properties } = element;
+    
+    ctx.beginPath();
+    ctx.moveTo(position.x, position.y);
+    ctx.lineTo(position.x + dimensions.width, position.y + dimensions.height);
+    
+    if (properties.stroke) {
+      ctx.strokeStyle = properties.stroke;
+      ctx.lineWidth = (properties.strokeWidth || 2) / viewport.zoom;
+      ctx.stroke();
+    }
   };
 
   const roundRect = (
@@ -305,6 +339,7 @@ export default function Canvas({ onCreateArtboard }: CanvasProps) {
         className={activeTool === 'hand' ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'}
       />
       {artboards.length === 0 && <EmptyState onCreateArtboard={onCreateArtboard} />}
+      <DrawingMode viewport={viewport} />
       {selectedElementIds.map((id) => {
         const element = elements[id];
         if (!element) return null;

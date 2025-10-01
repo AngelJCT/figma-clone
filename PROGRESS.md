@@ -163,7 +163,74 @@
    - Smooth modal open/close animations
    - Responsive template cards with aspect ratio previews
 
-## Next Steps (Phase 4)
+## Phase 4: Design Elements & Drawing ✅ COMPLETED
+
+### Completed Tasks:
+- ✅ **Drawing Mode:** Click and drag to create shapes
+  - Rectangle tool with drag-to-draw
+  - Circle tool with drag-to-draw
+  - Frame tool with drag-to-draw
+  - Line tool for connecting elements
+  - Text tool with click-to-place
+  - Visual preview while drawing (dashed blue outline)
+  - Automatically switches back to select tool after drawing
+
+- ✅ **Frame Element with Auto-Layout:**
+  - Frame acts as container for other elements
+  - Layout modes: None, Horizontal, Vertical, Grid
+  - Padding control for inner spacing
+  - Gap control for spacing between items
+  - Justify Content: Start, Center, End, Space Between
+  - Align Items: Start, Center, End
+  - Visual indicator (dashed blue line) when layout is active
+  - Border radius support
+
+- ✅ **Enhanced Line Element:**
+  - Draw lines by dragging
+  - Stroke color and width controls
+  - Connects two points on canvas
+
+- ✅ **Improved Text Rendering:**
+  - Better baseline alignment
+  - Proper text positioning
+  - All text properties accessible in panel
+
+- ✅ **Enhanced Properties Panel:**
+  - Frame-specific auto-layout section
+  - Line element properties
+  - All layout controls grouped logically
+  - Better organization with sections
+
+- ✅ **UI Improvements:**
+  - Cleaner header with only essential controls
+  - Removed quick-add buttons (use toolbar instead)
+  - Better zoom controls styling
+  - Divider between sections in header
+
+### Features Working:
+1. **Drawing Mode:**
+   - Select any shape tool from toolbar (R, C, F, L, T)
+   - Cursor changes to crosshair
+   - Click and drag to create shape
+   - Text tool places text on single click
+   - Minimum size validation (5px)
+   - Auto-returns to select tool after drawing
+
+2. **Frame with Auto-Layout:**
+   - Create frames with F key or toolbar
+   - Set layout mode in properties panel
+   - Configure padding, gap, justify, and align
+   - Visual feedback shows layout area
+   - Perfect for responsive designs
+
+3. **All Element Types:**
+   - Rectangle (with border radius)
+   - Circle/Ellipse
+   - Frame (container with layout)
+   - Text (click to place)
+   - Line (drag to draw)
+
+## Next Steps (Phase 5)
 
 ### Future Phases:
 - Phase 4: Layout components (Flexbox, Grid)
@@ -172,6 +239,44 @@
 - Phase 7: Essential features (copy/paste, alignment)
 - Phase 8: Project management (save/load, export)
 - Phase 9: Polish and optimization
+
+## Testing Instructions for Phase 4
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+2. Open http://localhost:3000
+
+3. Create an artboard first
+
+4. Test drawing mode:
+   - Press **R** for rectangle tool
+   - Click and drag on canvas to draw a rectangle
+   - Tool automatically switches back to select
+   - Press **C** for circle, **F** for frame, **L** for line
+   - Press **T** for text, then click to place
+
+5. Test Frame with auto-layout:
+   - Draw a frame (press F, then drag)
+   - Select the frame
+   - In properties panel, scroll to "Auto Layout" section
+   - Change layout mode to "Horizontal" or "Vertical"
+   - Adjust padding, gap, justify content, align items
+   - See visual feedback (blue dashed line)
+
+6. Test line drawing:
+   - Press L for line tool
+   - Drag to create a line
+   - Select line and change stroke color/width
+
+7. Verify all previous features still work:
+   - Pan and zoom
+   - Select and move elements
+   - Resize with handles
+   - Multiple artboards
+   - All keyboard shortcuts
 
 ## Testing Instructions for Phase 3
 
